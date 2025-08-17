@@ -201,5 +201,10 @@ config.setAllowCredentials(true);
 4. Push: `git push origin feature/nueva-funcionalidad`
 5. Abre un Pull Request
 
+## 🧠 Autor
+
+Desarrollado por **Rodrigo Zúñiga** como parte del programa **Oracle Next Education (ONE) - Alura LATAM**.
+
+
 ## Licencia
-MIT © 2025 **Rodrigo Zúñiga Ampuero**
+MIT © 2025
