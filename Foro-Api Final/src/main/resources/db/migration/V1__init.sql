@@ -1,0 +1,47 @@
+-- Tablas base
+CREATE TABLE IF NOT EXISTS profiles (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_profiles (
+  user_id BIGINT NOT NULL,
+  profile_id BIGINT NOT NULL,
+  PRIMARY KEY (user_id, profile_id),
+  CONSTRAINT fk_up_user FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT fk_up_profile FOREIGN KEY (profile_id) REFERENCES profiles(id)
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(150) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS topics (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(200) NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  status VARCHAR(20) NOT NULL,
+  author_id BIGINT NOT NULL,
+  course_id BIGINT NOT NULL,
+  CONSTRAINT fk_topic_author FOREIGN KEY (author_id) REFERENCES users(id),
+  CONSTRAINT fk_topic_course FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+CREATE TABLE IF NOT EXISTS replies (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  author_id BIGINT NOT NULL,
+  topic_id BIGINT NOT NULL,
+  CONSTRAINT fk_reply_author FOREIGN KEY (author_id) REFERENCES users(id),
+  CONSTRAINT fk_reply_topic FOREIGN KEY (topic_id) REFERENCES topics(id)
+);
